@@ -15,47 +15,55 @@
   </head>
   <body>
   <?php
-$myarray   = array();
-$myarray[] = array(
-    "Name" => "Jim",
-    "ID" => "00001",
-    "Favorite Color" => "Blue"
-);
-$myarray[] = array(
-    "Name" => "Sue",
-    "ID" => "00002",
-    "Favorite Color" => "Red"
-);
-$myarray[] = array(
-    "Name" => "Barb",
-    "ID" => "00003",
-    "Favorite Color" => "Green"
-);
+//    $myarray   = array();
+//    $myarray[] = array(
+//    "Name" => "Jim",
+//    "ID" => "00001",
+//    "Favorite Color" => "Blue"
+//    );
+//    $myarray[] = array(
+//    "Name" => "Sue",
+//    "ID" => "00002",
+//    "Favorite Color" => "Red"
+//    );
+//    $myarray[] = array(
+//    "Name" => "Barb",
+//    "ID" => "00003",
+//    "Favorite Color" => "Green"
+// );
 
-class html
-{
-    public $html;
-    public function __construct($html = array())
-    {
-        // echo $html Array;
+class htmlTable{
+    public $htmlTable;
+    public $data;
+    //Read data
+    public function setArray($data){
+    	$this->data = $data;
+    } 
+    //Array From CSV File
+    public function setArrayFromCSV($filename){
+    	$file = fopen($filename, "r");
+        //Name Line
+        $nameline = fgetcsv($file);
+        //Read from CSV
+        while(($lines = fgetcsv($file)) !==FALSE){
+    	 $lines = array_combine($nameline, $lines);
+	     $this->data[] = $lines;
+        }
     }
-}
-
-class htmlTable extends html
-{
-    protected $htmlTable;
-
-    public function getHTML($html)
-    {
-        $this->html = $html;
+        //Print The Array
+    public function getArray(){
+            print_r($this->rawArray);
     }
+        
+    //HTML Table
     public function getTableHTML()
     {
         $this->htmlTable .= '<table>';
         $this->htmlTable .= '<thead>';
         $this->htmlTable .= '<tr>';
-        //Table Head
-        foreach ($this->html[0] as $key => $value) {
+        
+	//Table Head
+        foreach ($this->data[0] as $key => $value) {
             $this->htmlTable .= '<th>' . $key . '</th>';
         }
         $this->htmlTable .= '</tr>';
@@ -63,7 +71,7 @@ class htmlTable extends html
 
         //Table Body
         $this->htmlTable .= '<tbody>';
-        foreach ($this->html as $row) {
+        foreach ($this->data as $row) {
             $this->htmlTable .= '<tr>';
             foreach ($row as $key => $value) {
                 $this->htmlTable .= '<td>' . $value . '</td>';
@@ -74,10 +82,10 @@ class htmlTable extends html
         echo $this->htmlTable;
     }
 }
-$obj = new htmlTable;
-$obj->getHTML($myarray);
-$obj->getTableHTML();
 
+$obj = new htmlTable;
+$obj->setArrayFromCSV("datainfo.csv");
+$obj->getTableHTML();
 ?>
   </body>
 </html>
