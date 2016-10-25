@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Turning an array into a table</title>
+    <title>Turning a csv file into a table</title>
     <style>
       table {
         border-collapse: collapse;
@@ -15,22 +15,6 @@
   </head>
   <body>
   <?php
-//    $myarray   = array();
-//    $myarray[] = array(
-//    "Name" => "Jim",
-//    "ID" => "00001",
-//    "Favorite Color" => "Blue"
-//    );
-//    $myarray[] = array(
-//    "Name" => "Sue",
-//    "ID" => "00002",
-//    "Favorite Color" => "Red"
-//    );
-//    $myarray[] = array(
-//    "Name" => "Barb",
-//    "ID" => "00003",
-//    "Favorite Color" => "Green"
-// );
 
 class htmlTable{
     public $htmlTable;
