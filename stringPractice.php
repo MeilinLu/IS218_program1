@@ -64,11 +64,40 @@
     echo "Would you like a green or red apple?";
   }
 ?>
-
-
-
-
-
+<?php
+  echo "\n".'#11 rtrim'. "\n";
+  $hello = "Hello Apple";
+  $trimmed = rtrim($hello,"Hple>");
+  var_dump($trimmed); 
+?>
+<?php
+  echo "\n".'#12 str_getcsv'."\n";
+  $csv = array_map('str_getcsv', file('cars.csv'));
+  print_r($csv);
+?>
+<?php
+  echo "\n".'#13 strip_tags'."\n";
+  $text = '<h1>title</he><a href = "www.google.com">link</a>';
+  echo strip_tags($text)."\n";
+  echo strip_tags($text,'<p><a>');
+?>
+<?php
+  echo "\n".'#14 strpos()'."\n";
+  $str = "abc abc abc";
+  $pos = strpos($str,'a',0);
+  echo $pos;
+  $pos = strpos($str,'a',1);
+  echo $pos;
+  $pos = strpos($str,'a',5);
+  echo $pos;
+?>
+<?php
+  echo "\n".'#15 string length function'."\n";
+  $str = "asdf";
+  echo strlen($str)."\n";
+  $str = "1234567890";
+  echo strlen($str);
+?>
 
 
 
