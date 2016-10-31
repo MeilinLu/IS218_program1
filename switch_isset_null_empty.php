@@ -42,13 +42,14 @@ if(is_null($var)){
 
 echo "switch structure \n";
 
-switch($nospace){
-  case "empty($nospace)": 
-    echo "$nospace is either 0, empty, or not set at all.\n";
-  case "isset($nospace)":
-    echo "$nospace is set even though it is empty.\n";
-  case "is_null($nospace)":
-    echo "$nospace is not NULL. \n";  
+switch($varVar=NULL){
+ 
+  case "empty($varVar)": 
+    echo "$varVar is either 0, empty, or not set at all.\n";
+  case "isset($varVar)":
+    echo "$varVar is set even though it is empty.\n";
+  case "is_null($varVar)":
+    echo "$varVar is not NULL. \n";  
 }
 
 ?>
