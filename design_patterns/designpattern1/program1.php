@@ -1,4 +1,4 @@
-<?
+<?php
 class car{
   private $carBrand;
   private $carModel;
@@ -19,7 +19,7 @@ class car{
   public function getColor(){
     return $this->carColor;
   }
-  function getCarInfo(){
+  public function getCarInfo(){
     return $this->getBrand().' '.$this->getModel();
   }
 }
@@ -47,55 +47,69 @@ class carColorDecorator{
     $this->carColor=$this->car->getColor();
   }
 }
+ 
 
 class RedCar extends carColorDecorator{
   private $ccd;
    
-  public function __construct(carColorDecorator $ccd){
-    $this->ccd=$ccd;
+  public function __construct(carColorDecorator $ccd_in){
+    $this->ccd=$ccd_in;
+    $this->makeRedCar();
   }
     
   public function makeRedCar(){
-    $this->ccd->carColor=$this->ccd->car->'red';
+    $this->ccd->carColor='red';
+  }
+
+  public function showStrategy(){
+    echo 'Brand: '.$this->ccd->car->getBrand().'<br>';
+    echo 'Model: '.$this->ccd->car->getModel().'<br>';
+    echo 'Original Color: '.$this->ccd->car->getColor().'<br>';
+    echo 'New color: '.$this->ccd->carColor.'<br>';
   }
 }
   
 class BlueCar extends carColorDecorator{
   private $ccd;
-  public function __construct(carColorDecorator $ccd){
-    $this->ccd = $ccd;
+  public function __construct(carColorDecorator $ccd_in){
+    $this->ccd = $ccd_in;
+    $this->makeBlueCar();
   }
   public function makeBlueCar(){
-    $this->ccd->carColor=$this->ccd->car->'blue';
+    $this->ccd->carColor='blue';
+  }
+  public function showStrategy(){
+    echo 'Brand: '.$this->ccd->car->getBrand().'<br>';
+    echo 'Model: '.$this->ccd->car->getModel().'<br>';
+    echo 'Original Color: '.$this->ccd->car->getColor().'<br>';
+    echo 'New color: '.$this->ccd->carColor.'<br>';
   }
 }
 
 // car strategy class
 
 class colorStrategy{
-  public $stragtegy = NULL;
+ 
+  public $strategy;
   
-  public function __construct(carColorDecorator $ccd, $color){
-  switch($color){
-    case "red":
-      $this->strategy = new RedCar($ccd);
-      break;
-    case "blue":
-      $this->strategy = new BlueCar($ccd);
-      break;
-    case 
-  
-  }
+  public function __construct(carColorDecorator $ccd_in, $color){
+    switch($color){
+      case 'red':
+        $this->strategy = new RedCar($ccd_in);
+	$this->strategy->showStrategy();
+        break;
+      case 'blue':
+        $this->strategy = new BlueCar($ccd_in);
+        $this->strategy->showStrategy();
+	break;
+    }
   }
 }
 
-
-
-
-
-
-
-
-
+$car1 = new Car('Honda',"CR-V",'white');
+$deco = new carColorDecorator($car1);
+$strategyDefault = new colorStrategy($deco,'default');
+$strategyBlue = new colorStrategy($deco, 'blue');
+$strategyRed = new colorStrategy($deco, 'red');
 
 ?>
