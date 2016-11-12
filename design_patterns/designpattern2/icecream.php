@@ -1,30 +1,34 @@
 <?php
 
-//abstract factory 
-abstract class icecream{
-  public abstract function getDescription();
-  public abstract function cost();
-}
+class Icecream{
+  public $flavor;
+  public $size;
+  public $cost;
 
-class MilkIcecream extends icecream{
-  public $description = "milk_icecream";
-  public function getDescription(){
-    $this->description=$description;
+  public function __construct($flavor, $size, $cost){
+    $this->flavor = $flavor;
+    $this->size = $size;
+    $this->cost = $cost;
   }
-  public function cost(){
-    return 19;
-  }
-}
 
-class SlushIce extends icecream{
-  public $description = "slush_ice";
-  public function getdesription(){
-    $this->description = $description;
+  public function getFlavor(){
+    return $this->flavor;
   }
-  public function cost(){
-    return 10;
+  
+  public function getSize(){
+    return $this->size;
+  }
+
+  public function getCost(){
+    return $this->cost;
   }
 }
+// icecream factory
 
+class IceFactory{
+  public static function create($flavor, $size, $cost){
+    return new Icecream($flavor, $size, $cost);
+  }
+}
 
-?>
+?>    

@@ -1,47 +1,78 @@
 <?php
-abstract class AbstractObserver{
-  abstract function update(AbstractSubject $subject_in);
-}
 
-abstract class AbstractSubject{
-  abstract function attach(AbstractObserver $observer_in);
-  abstract function detach(AbstractObserver $observer_in);
-  abstract function notify();
-}
-
-class PatternObserver extends AbstractObserver{
+class PatternObserver{
   public function __construct(){}
-  public function update(AbstractSubject $subject){
-    echo 'USER: '.$subject->getFavorites()."\n";
+  public function update($name, $machineID, $action){
+    echo "Observer Report: ". $name. $action."<br>";
   }
 }
 
-class PatternSubject extends AbstractSubject{
-  private $favoritePatterns = NULL;
+class User{
+  
+  private $name;
+  private $machine = NULL;
+  private $availableATM = TRUE;
   private $observers = array();
-  function __construct(){}
-  function attach(AbstractObserver $observer_in){
-    $this->observers[] = $observer_in;
+  
+  public function __construct($name){
+    $this->name = $name;
   }
-  function detach(AbstractObserver $observer_in){
+  
+  public function startUse($machine){
+    if($machine != NULL){
+      $this->machine = $machine;
+      $this->availableATM = FALSE;
+      $this->notify($this->name,$this->machine->getID(),' I am using the machine.');
+    }
+    else{
+      echo "Machine is not available. <br>";
+    }
+  }
+
+  public function finishUse($machine){
+    if($this->machine != NULL){
+      $this->machine->finishUse($this->machine);
+      $this->availableATM = FALSE;
+      $this->notify($this->name,$this->machine->getID(),' I do not need the machine.'); 
+    }
+  }
+
+  public function attach(PatternObserver $ob){
+    $this->observers[] = $ob;
+  }
+
+  public function detach(PatternObserver $ob){
     foreach($this->observers as $okey=>$oval){
       if($oval == $observer_in){
         unset($this->observers[$okey]);
       }
     } 
   }
-  function notify(){
+
+  public function notify($name,$machineID, $action){
     foreach($this->observers as $obs){
-      $obs->update($this);
+      $obs->update($name, $machineID, $action);
     }
   }
-  function updateFavorites($newFavorites){
-    $this->favorites = $newFavorites;
-    $this->notify();
+
+  public function getName(){
+    echo $this->name;
   }
-  function getFavorites(){
-    return $this->favorites;
+  
+  public function getAvailableATM(){
+    echo $this->availabeATM;
+  }
+
+  public function getMachineID(){
+    if($this->machine != NULL){
+      echo $this->machine;
+    }
+  }
+  
+}
+class userFactory{
+  public static function create($name){
+    return new User($name);
   }
 }
-
 ?>

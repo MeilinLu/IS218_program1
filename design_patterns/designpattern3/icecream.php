@@ -1,51 +1,54 @@
 <?php
 
-abstract class AbstractFactory{
-  abstract function makeICE($param);
-}
 
 class icecream{
-  private $cost;
+ 
   private $flavor;
+  private $size;
+  private $cost;
 
-  function __construct($brand, $flavor){
-    $this->brand=$brand;
+  public function __construct($flavor,$size, $cost){
     $this->flavor=$flavor;
+    $this->size=$size;
+    $this->cost=$cost;
   }
 
-  function getBrand(){
-    return $this->brand;
-  }
-
-  function getFlavor(){
+  public function getFlavor(){
     return $this->flavor;
   }
   
-  function getBrandAndFlavor(){
-    return $this->getBrand().' '.$this->getFlavor();
+  public function getSize(){
+    return $this->size;
   }
+
+  public function getCost(){
+    return $this->cost;
+  }
+
 }
 
 // ice cream factory
 
 class iceFactory{
-  public static function create($brand, $flavor){
-    return new icecream($brand, $flavor);
+  public static function create($flavor, $size, $cost){
+    return new icecream($flavor, $size, $cost);
   }    
 }
 
 // decorator class
 
 class iceDecorator{
+  
+  public $icecream;
+  public $topping;
+  public $cost;
 
-  protected $icecream;
-  protected $flavor;
-  public function __construct(Icecream $icecream_in){
-    $this->icecream=$icecream_in;
-    $this->resetFlavor();  
+  public function __construct(Icecream $ice_in){
+    $this->icecream = $ice_in;
+    $this->addTopping();
   }
-  function resetFlavor(){
-    $this->size=$this->icecream->getFlavor();
+  public function addTopping(){
+    $this->=$this->icecream->getFlavor();
   }
   function showFlavor(){
     return $this->flavor;
