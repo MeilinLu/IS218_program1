@@ -86,5 +86,6 @@ class milkIce extends iceDecorator{
 $order1 = new Icecream('vanilla','small',5);
 $deco =  new iceDecorator($order1);
 $decoMilk = new milkIce($deco);
-
+//changeFlavor($decoMilk);
+$decoMilk->showOrder();
 ?>
