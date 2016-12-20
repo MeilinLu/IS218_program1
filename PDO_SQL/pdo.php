@@ -8,7 +8,7 @@
     private function __construct() {
       try {
         // assign PDO object to db variable
-        self::$db = new PDO('mysql:host=sql2.njit.edu;dbname=ml473', 'ml473', 'Cl1n1qu1' );
+        self::$db = new PDO('mysql:host=sql2.njit.edu;dbname=ml473', 'ml473', 'Z93KhFEP' );
         self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
       }
       catch (PDOException $e) {
